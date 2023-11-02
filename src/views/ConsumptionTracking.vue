@@ -125,11 +125,11 @@ export default {
       }
     },
   },
-  created() {
-    this.fetchConsumptions();
+  async created() {
+    await this.fetchConsumptions();
   },
-  updated() {
-    this.fetchConsumptions();
+  async updated() {
+    await this.fetchConsumptions();
   },
 };
 </script>

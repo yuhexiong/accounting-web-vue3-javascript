@@ -1,13 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import axios from "axios"; // Import Axios to make API requests
-
+import axios from "axios";
 import TypeManagement from "../views/TypeManagement.vue";
 import ConsumptionTracking from "../views/ConsumptionTracking.vue";
 import AccountingReport from "../views/AccountingReport.vue";
 
 const routes = [
-  { path: "/type-management", component: TypeManagement },
-  { path: "/consumption-tracking", component: ConsumptionTracking },
+  { path: "/type", component: TypeManagement },
+  { path: "/consumption", component: ConsumptionTracking },
   { path: "/accounting-report/:year/:month", component: AccountingReport },
 ];
 

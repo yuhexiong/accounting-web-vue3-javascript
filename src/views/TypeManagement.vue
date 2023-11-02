@@ -20,11 +20,10 @@
         </tr>
       </tbody>
     </table>
-
-    <form @submit.prevent="addOrUpdateType">
-      <input v-model="type.id" type="text" placeholder="Type ID" />
-      <input v-model="type.name" type="text" placeholder="Type Name" />
-      <button type="submit">Add/Update Type</button>
+    <form @submit.prevent="insert">
+      <input v-model="type.id" type="text" />
+      <input v-model="type.name" type="text" />
+      <button type="button">add type</button>
     </form>
   </div>
 </template>
@@ -43,7 +42,8 @@ export default {
     async fetchTypes() {
       try {
         const response = await axiosInstance.get("/type");
-        this.types = response.data;
+        console.log(response);
+        this.types = response;
       } catch (error) {
         console.error("Error fetching types:", error);
       }
@@ -53,7 +53,7 @@ export default {
         await axiosInstance.post("/type", this.type);
         this.type.id = "";
         this.type.name = "";
-        this.fetchTypes(); // Refresh the types list
+        this.fetchTypes();
       } catch (error) {
         console.error("Error adding/updating type:", error);
       }
@@ -63,7 +63,7 @@ export default {
         await axiosInstance.patch(`/type/${this.type.id}`, this.type);
         this.type.id = "";
         this.type.name = "";
-        this.fetchTypes(); // Refresh the types list
+        this.fetchTypes();
       } catch (error) {
         console.error("Error editing type:", error);
       }
@@ -72,17 +72,17 @@ export default {
       try {
         await axiosInstance.delete(`/type/${this.type.id}`);
         this.type.id = "";
-        this.fetchTypes(); // Refresh the types list
+        this.fetchTypes();
       } catch (error) {
         console.error("Error editing type:", error);
       }
     },
   },
-  created() {
-    this.fetchTypes();
+  async created() {
+    await this.fetchTypes();
   },
-  updated() {
-    this.fetchTypes();
+  async updated() {
+    await this.fetchTypes();
   },
 };
 </script>
