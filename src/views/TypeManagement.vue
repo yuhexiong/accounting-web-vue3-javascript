@@ -20,7 +20,7 @@
         </tr>
       </tbody>
     </table>
-    <form @submit.prevent="insert">
+    <form @submit.prevent="addOrUpdateType">
       <input v-model="type.id" type="text" />
       <input v-model="type.name" type="text" />
       <button type="button">add type</button>
