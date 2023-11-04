@@ -1,32 +1,54 @@
 <template>
   <div>
-    <h1>Type Management</h1>
+    <h2>費用類別</h2>
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Action</th>
+          <th>代碼</th>
+          <th>名稱</th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="type in types" :key="type.id">
           <td>{{ type.id }}</td>
-          <td>{{ type.name }}</td>
           <td>
-            <button @click="editType(type)">Edit</button>
-            <button @click="deleteType(type.id)">Delete</button>
+            <template v-if="type === editingType">
+              <input v-model="type.name" @input="toggleEditType(type)" />
+            </template>
+            <template v-else>
+              {{ type.name }}
+            </template>
           </td>
+          <td>
+            <button @click="toggleEditType(type)" v-if="type !== editingType">
+              編輯
+            </button>
+            <button @click="saveEditedType(type)" v-else>儲存</button>
+          </td>
+          <td><button @click="deleteType(type.id)">刪除</button></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td><input v-model="type.id" type="text" /></td>
+          <td><input v-model="type.name" type="text" /></td>
+          <td colspan="2"><button @click="addType">新增類別</button></td>
+        </tr>
+      </tfoot>
     </table>
-    <form @submit.prevent="addOrUpdateType">
-      <input v-model="type.id" type="text" />
-      <input v-model="type.name" type="text" />
-      <button type="button">add type</button>
-    </form>
   </div>
 </template>
+<style>
+@import "@/assets/table-styles.css";
+</style>
 
 <script>
 import { axiosInstance } from "../router/index";
@@ -36,52 +58,56 @@ export default {
     return {
       type: { id: "", name: "" },
       types: [],
+      editingType: null,
     };
   },
   methods: {
     async fetchTypes() {
       try {
         const response = await axiosInstance.get("/type");
-        console.log(response);
-        this.types = response;
+        this.types = response.data;
       } catch (error) {
         console.error("Error fetching types:", error);
       }
     },
-    async addOrUpdateType() {
+    async addType() {
       try {
         await axiosInstance.post("/type", this.type);
         this.type.id = "";
         this.type.name = "";
         this.fetchTypes();
       } catch (error) {
-        console.error("Error adding/updating type:", error);
+        console.error("Error adding type:", error);
       }
     },
-    async editType() {
+    async toggleEditType(type) {
+      this.editingType = type;
+    },
+    async saveEditedType(type) {
       try {
-        await axiosInstance.patch(`/type/${this.type.id}`, this.type);
-        this.type.id = "";
-        this.type.name = "";
-        this.fetchTypes();
+        axiosInstance
+          .patch(`/type/${type.id}/${type.name}`)
+          .then(() => {
+            this.editingType = null;
+            this.fetchTypes();
+          })
+          .catch((error) => {
+            console.error("Error editing type:", error);
+          });
       } catch (error) {
         console.error("Error editing type:", error);
       }
     },
-    async deleteType() {
+    async deleteType(typeId) {
       try {
-        await axiosInstance.delete(`/type/${this.type.id}`);
-        this.type.id = "";
+        await axiosInstance.delete(`/type/${typeId}`);
         this.fetchTypes();
       } catch (error) {
-        console.error("Error editing type:", error);
+        console.error("Error deleting type:", error);
       }
     },
   },
   async created() {
-    await this.fetchTypes();
-  },
-  async updated() {
     await this.fetchTypes();
   },
 };

@@ -3,22 +3,33 @@ import axios from "axios";
 import TypeManagement from "../views/TypeManagement.vue";
 import ConsumptionTracking from "../views/ConsumptionTracking.vue";
 import AccountingReport from "../views/AccountingReport.vue";
+import LayoutComponent from "@/components/LayoutComponent.vue";
 
 const routes = [
-  { path: "/type", component: TypeManagement },
-  { path: "/consumption", component: ConsumptionTracking },
-  { path: "/accounting-report/:year/:month", component: AccountingReport },
+  {
+    path: "/",
+    component: LayoutComponent,
+    children: [
+      { path: "type", name: "TypeManagement", component: TypeManagement },
+      {
+        path: "consumption",
+        name: "ConsumptionTracking",
+        component: ConsumptionTracking,
+      },
+      { path: "report", name: "AccountingReport", component: AccountingReport },
+    ],
+  },
 ];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
 
 const apiBaseUrl = process.env.VUE_APP_API_BASE_URL;
 
 const axiosInstance = axios.create({
   baseURL: apiBaseUrl,
-});
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
 });
 
 export { axiosInstance };
