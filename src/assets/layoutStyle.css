@@ -1,0 +1,26 @@
+.app-layout {
+  display: flex;
+}
+
+.sidebar {
+  padding-top: 30px;
+  width: 250px;
+  background-color: #f0f0f0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.sidebar div {
+  padding-left: 30px;
+}
+
+.content {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+a {
+  color: black;
+}

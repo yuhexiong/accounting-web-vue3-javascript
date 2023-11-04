@@ -1,64 +1,131 @@
 <template>
   <div>
-    <h1>Consumption Tracking</h1>
+    <h2>消費紀錄</h2>
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Type</th>
-          <th>Name</th>
-          <th>Amount</th>
-          <th>Note</th>
-          <th>Action</th>
+          <th>日期</th>
+          <th>分類</th>
+          <th>名稱</th>
+          <th>金額</th>
+          <th>備註</th>
+          <th class="button-column"></th>
+          <th class="button-column"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="consumption in consumptions" :key="consumption.id">
-          <td>{{ consumption.id }}</td>
           <td>{{ consumption.date }}</td>
-          <td>{{ consumption.status }}</td>
-          <td>{{ consumption.typeId }}</td>
-          <td>{{ consumption.name }}</td>
-          <td>{{ consumption.amount }}</td>
-          <td>{{ consumption.note }}</td>
           <td>
-            <button @click="editConsumption(consumption)">Edit</button>
-            <button @click="deleteConsumption(consumption.id)">Delete</button>
+            <template v-if="consumption === editingConsumption">
+              <input
+                v-model="consumption.typeId"
+                @input="toggleEditConsumption(consumption)"
+              />
+            </template>
+            <template v-else>
+              {{ consumption.typeId }}
+            </template>
+          </td>
+          <td>
+            <template v-if="consumption === editingConsumption">
+              <input
+                v-model="consumption.name"
+                @input="toggleEditConsumption(consumption)"
+              />
+            </template>
+            <template v-else>
+              {{ consumption.name }}
+            </template>
+          </td>
+          <td>
+            <template v-if="consumption === editingConsumption">
+              <input
+                v-model="consumption.amount"
+                @input="toggleEditConsumption(consumption)"
+              />
+            </template>
+            <template v-else>
+              {{ consumption.amount }}
+            </template>
+          </td>
+          <td>
+            <template v-if="consumption === editingConsumption">
+              <input
+                v-model="consumption.note"
+                @input="toggleEditConsumption(consumption)"
+              />
+            </template>
+            <template v-else>
+              {{ consumption.note }}
+            </template>
+          </td>
+          <td class="button-column">
+            <button
+              @click="toggleEditConsumption(consumption)"
+              v-if="consumption !== editingConsumption"
+            >
+              編輯
+            </button>
+            <button @click="saveEditedConsumption(consumption)" v-else>
+              儲存
+            </button>
+          </td>
+          <td class="button-column">
+            <button @click="deleteConsumption(consumption.id)">刪除</button>
           </td>
         </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="button-column"></td>
+          <td class="button-column"></td>
+        </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td>{{ todayDate }}</td>
+          <td><input v-model="consumption.typeId" type="text" /></td>
+          <td><input v-model="consumption.name" type="text" /></td>
+          <td><input v-model="consumption.amount" type="text" /></td>
+          <td><input v-model="consumption.note" type="text" /></td>
+          <td colspan="2" class="button-column">
+            <button @click="addConsumption">新增消費</button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
-
-    <form @submit.prevent="addOrUpdateConsumption">
-      <input v-model="consumption.date" type="text" placeholder="Date" />
-      <input v-model="consumption.status" type="text" placeholder="Status" />
-      <input v-model="consumption.typeId" type="text" placeholder="Type" />
-      <input v-model="consumption.name" type="text" placeholder="Name" />
-      <input v-model="consumption.amount" type="text" placeholder="Amount" />
-      <input v-model="consumption.note" type="text" placeholder="Note" />
-      <button type="submit">Add/Update Consumption</button>
-    </form>
   </div>
 </template>
+<style>
+@import "@/assets/tableStyle.css";
+</style>
 
 <script>
 import { axiosInstance } from "../router/index";
+import moment from "moment";
 
 export default {
+  computed: {
+    todayDate() {
+      return moment().format("YYYY-MM-DD");
+    },
+  },
   data() {
     return {
       consumption: {
-        id: 0,
-        date: "",
-        status: 0,
+        id: "",
         typeId: "",
         name: "",
         amount: "",
         note: "",
       },
       consumptions: [],
+      editingConsumption: null,
+      types: [],
     };
   },
   methods: {
@@ -70,66 +137,50 @@ export default {
         console.error("Error fetching consumptions:", error);
       }
     },
-    async addOrUpdateConsumption() {
+    async addConsumption() {
       try {
         await axiosInstance.post("/consumption", this.consumption);
-        this.consumption = {
-          id: 0,
-          date: "",
-          status: 0,
-          typeId: "",
-          name: "",
-          amount: "",
-          note: "",
-        };
-        this.fetchConsumptions(); // Refresh the consumptions list
+        this.clearConsumptionForm();
+        this.fetchConsumptions();
       } catch (error) {
-        console.error("Error adding/updating consumption:", error);
+        console.error("Error adding consumption:", error);
       }
     },
-    async editConsumption() {
+    async toggleEditConsumption(consumption) {
+      this.editingConsumption = consumption;
+    },
+    async saveEditedConsumption(consumption) {
       try {
-        await axiosInstance.patch(
-          `/consumption/${this.consumption.id}`,
-          this.consumption
-        );
-        this.consumption = {
-          id: 0,
-          date: "",
-          status: 0,
-          typeId: "",
-          name: "",
-          amount: "",
-          note: "",
-        };
-        this.fetchConsumptions(); // Refresh the consumptions list
+        await axiosInstance
+          .put(`/consumption/${consumption.id}`, consumption)
+          .then(() => {
+            this.editingConsumption = null;
+            this.fetchConsumptions();
+          });
       } catch (error) {
         console.error("Error editing consumption:", error);
       }
     },
-    async deleteConsumption() {
+    async deleteConsumption(consumptionId) {
       try {
-        await axiosInstance.delete(`/consumption/${this.consumptionId}`);
-        this.consumption = {
-          id: 0,
-          date: "",
-          status: 0,
-          typeId: "",
-          name: "",
-          amount: "",
-          note: "",
-        };
-        this.fetchConsumptions(); // Refresh the consumptions list
+        await axiosInstance.delete(`/consumption/${consumptionId}`);
+        this.fetchConsumptions();
       } catch (error) {
         console.error("Error deleting consumption:", error);
       }
     },
+    clearConsumptionForm() {
+      this.consumption = {
+        id: "",
+        typeId: "",
+        name: "",
+        amount: "",
+        note: "",
+      };
+    },
   },
   async created() {
-    await this.fetchConsumptions();
-  },
-  async updated() {
-    await this.fetchConsumptions();
+    this.fetchConsumptions();
   },
 };
 </script>

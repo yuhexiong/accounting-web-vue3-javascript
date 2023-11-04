@@ -4,8 +4,15 @@ table {
 }
 
 th,
-td {
-  height: 25px;
+td,
+input {
+  width: 90px;
+  height: 20px;
   border: 1px solid black;
   text-align: left;
+  /* box-sizing: border-box; */
+}
+
+.button-column {
+  width: 50px;
 }

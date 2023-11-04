@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h2>費用類別</h2>
+    <h2>類別維護</h2>
+    <TypesFetcher :types="types" @types-fetched="types = $event" />
     <table>
       <thead>
         <tr>
           <th>代碼</th>
           <th>名稱</th>
-          <th></th>
-          <th></th>
+          <th class="button-column"></th>
+          <th class="button-column"></th>
         </tr>
       </thead>
       <tbody>
@@ -21,19 +22,21 @@
               {{ type.name }}
             </template>
           </td>
-          <td>
+          <td class="button-column">
             <button @click="toggleEditType(type)" v-if="type !== editingType">
               編輯
             </button>
             <button @click="saveEditedType(type)" v-else>儲存</button>
           </td>
-          <td><button @click="deleteType(type.id)">刪除</button></td>
+          <td class="button-column">
+            <button @click="deleteType(type.id)">刪除</button>
+          </td>
         </tr>
         <tr>
           <td></td>
           <td></td>
-          <td></td>
-          <td></td>
+          <td class="button-column"></td>
+          <td class="button-column"></td>
         </tr>
       </tbody>
       <tfoot>
@@ -47,13 +50,17 @@
   </div>
 </template>
 <style>
-@import "@/assets/table-styles.css";
+@import "@/assets/tableStyle.css";
 </style>
 
 <script>
 import { axiosInstance } from "../router/index";
+import TypesFetcher from "@/components/TypesFetcher.vue";
 
 export default {
+  components: {
+    TypesFetcher,
+  },
   data() {
     return {
       type: { id: "", name: "" },
@@ -62,14 +69,6 @@ export default {
     };
   },
   methods: {
-    async fetchTypes() {
-      try {
-        const response = await axiosInstance.get("/type");
-        this.types = response.data;
-      } catch (error) {
-        console.error("Error fetching types:", error);
-      }
-    },
     async addType() {
       try {
         await axiosInstance.post("/type", this.type);
@@ -107,8 +106,8 @@ export default {
       }
     },
   },
-  async created() {
-    await this.fetchTypes();
-  },
+  // async created() {
+  //   await this.fetchTypes();
+  // },
 };
 </script>
