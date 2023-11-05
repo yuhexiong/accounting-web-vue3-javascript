@@ -26,14 +26,16 @@ export default {
       totalAmount: 0,
     };
   },
-  async fetchAccountingReport(year, month) {
-    try {
-      const response = await axiosInstance.get(`/report/${year}/${month}`);
-      this.content = response.data.content;
-      this.totalAmount = response.data.totalAmount;
-    } catch (error) {
-      console.error("Error fetching accounting report:", error);
-    }
+  methods: {
+    async fetchAccountingReport(year, month) {
+      try {
+        const response = await axiosInstance.get(`/report/${year}/${month}`);
+        this.content = response.data.content;
+        this.totalAmount = response.data.totalAmount;
+      } catch (error) {
+        console.error("Error fetching accounting report:", error);
+      }
+    },
   },
   created() {
     this.fetchAccountingReport(this.year, this.month);

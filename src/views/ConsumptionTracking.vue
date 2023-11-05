@@ -109,6 +109,12 @@ import { axiosInstance } from "../router/index";
 import moment from "moment";
 
 export default {
+  props: {
+    types: {
+      type: Array,
+      default: () => [],
+    },
+  },
   computed: {
     todayDate() {
       return moment().format("YYYY-MM-DD");
@@ -125,7 +131,6 @@ export default {
       },
       consumptions: [],
       editingConsumption: null,
-      types: [],
     };
   },
   methods: {

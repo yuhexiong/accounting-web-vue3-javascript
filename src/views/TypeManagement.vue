@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2>類別維護</h2>
-    <TypesFetcher :types="types" @types-fetched="types = $event" />
     <table>
       <thead>
         <tr>
@@ -55,26 +54,30 @@
 
 <script>
 import { axiosInstance } from "../router/index";
-import TypesFetcher from "@/components/TypesFetcher.vue";
 
 export default {
-  components: {
-    TypesFetcher,
+  props: {
+    types: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
       type: { id: "", name: "" },
-      types: [],
       editingType: null,
     };
   },
   methods: {
+    refreshTypes() {
+      this.$emit("refresh");
+    },
     async addType() {
       try {
         await axiosInstance.post("/type", this.type);
         this.type.id = "";
         this.type.name = "";
-        this.fetchTypes();
+        this.refreshTypes();
       } catch (error) {
         console.error("Error adding type:", error);
       }
@@ -88,7 +91,7 @@ export default {
           .patch(`/type/${type.id}/${type.name}`)
           .then(() => {
             this.editingType = null;
-            this.fetchTypes();
+            this.refreshTypes();
           })
           .catch((error) => {
             console.error("Error editing type:", error);
@@ -100,14 +103,11 @@ export default {
     async deleteType(typeId) {
       try {
         await axiosInstance.delete(`/type/${typeId}`);
-        this.fetchTypes();
+        this.refreshTypes();
       } catch (error) {
         console.error("Error deleting type:", error);
       }
     },
   },
-  // async created() {
-  //   await this.fetchTypes();
-  // },
 };
 </script>
