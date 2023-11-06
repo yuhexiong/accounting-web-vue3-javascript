@@ -88,7 +88,14 @@
       <tfoot>
         <tr>
           <td>{{ todayDate }}</td>
-          <td><input v-model="consumption.typeId" type="text" /></td>
+          <td>
+            <select v-model="consumption.typeId">
+              <option v-for="type in types" :key="type.id" :value="type.id">
+                {{ type.id }}
+              </option>
+            </select>
+          </td>
+
           <td><input v-model="consumption.name" type="text" /></td>
           <td><input v-model="consumption.amount" type="text" /></td>
           <td><input v-model="consumption.note" type="text" /></td>
@@ -134,6 +141,9 @@ export default {
     };
   },
   methods: {
+    refreshTypes() {
+      this.$emit("refresh");
+    },
     async fetchConsumptions() {
       try {
         const response = await axiosInstance.get("/consumption");
@@ -185,6 +195,7 @@ export default {
     },
   },
   async created() {
+    this.refreshTypes();
     this.fetchConsumptions();
   },
 };
