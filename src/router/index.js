@@ -4,17 +4,28 @@ import TypeManagement from "../views/TypeManagement.vue";
 import ConsumptionTracking from "../views/ConsumptionTracking.vue";
 import AccountingReport from "../views/AccountingReport.vue";
 import LayoutComponent from "@/components/LayoutComponent.vue";
+import TypeFetcher from "@/components/TypeFetcher";
 
 const routes = [
   {
     path: "/",
     component: LayoutComponent,
     children: [
-      { path: "type", name: "TypeManagement", component: TypeManagement },
       {
-        path: "consumption",
-        name: "ConsumptionTracking",
-        component: ConsumptionTracking,
+        path: "",
+        component: TypeFetcher,
+        children: [
+          {
+            path: "type",
+            name: "TypeManagement",
+            component: TypeManagement,
+          },
+          {
+            path: "consumption",
+            name: "ConsumptionTracking",
+            component: ConsumptionTracking,
+          },
+        ],
       },
       { path: "report", name: "AccountingReport", component: AccountingReport },
     ],

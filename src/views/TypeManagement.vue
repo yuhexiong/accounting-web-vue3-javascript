@@ -109,5 +109,8 @@ export default {
       }
     },
   },
+  async created() {
+    this.refreshTypes();
+  },
 };
 </script>
