@@ -34,6 +34,14 @@
     </div>
     <div class="right-pane">
       <h1>testest</h1>
+      <div id="chart">
+        <apexchart
+          type="pie"
+          width="380"
+          :options="chartOptions"
+          :series="series"
+        ></apexchart>
+      </div>
     </div>
   </div>
 </template>
@@ -44,8 +52,12 @@
 
 <script>
 import { axiosInstance } from "../router/index";
+import VueApexCharts from "vue3-apexcharts";
 
 export default {
+  components: {
+    apexchart: VueApexCharts,
+  },
   data() {
     return {
       year: new Date().getFullYear(),
@@ -53,6 +65,29 @@ export default {
       report: null,
       availableYears: [2022, 2023, 2024, 2025],
       availableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      // setting for pie chart
+      series: [44, 55, 13, 43, 22],
+      chartOptions: {
+        chart: {
+          width: 380,
+          type: "pie",
+        },
+        colors: ["#006d77", "#83c5be", "#edf6f9", "#ffddd2", "#e29578"],
+        labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200,
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+        ],
+      },
     };
   },
   methods: {
