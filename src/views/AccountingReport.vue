@@ -1,44 +1,71 @@
 <template>
-  <div>
-    <h1>Accounting Report</h1>
-    <p>Year: {{ year }}</p>
-    <p>Month: {{ month }}</p>
-    <div>
-      <h2>Content:</h2>
-      <ul>
-        <li v-for="(amount, typeId) in content" :key="typeId">
-          {{ typeId }}: {{ amount }}
-        </li>
-      </ul>
+  <h2>每月報表</h2>
+  <div class="container">
+    <div class="left-pane">
+      <div>
+        <label for="yearDropdown">Year:</label>
+        <select v-model="year" id="yearDropdown">
+          <option
+            v-for="option in availableYears"
+            :key="option"
+            :value="option"
+          >
+            {{ option }}
+          </option>
+        </select>
+
+        <label for="monthDropdown">Month:</label>
+        <select v-model="month" id="monthDropdown">
+          <option
+            v-for="option in availableMonths"
+            :key="option"
+            :value="option"
+          >
+            {{ option }}
+          </option>
+        </select>
+
+        <button @click="fetchReport">Search</button>
+      </div>
+
+      <div v-if="report">
+        <pre>{{ report }}</pre>
+      </div>
     </div>
-    <p>Total Amount: {{ totalAmount }}</p>
+    <div class="right-pane">
+      <h1>testest</h1>
+    </div>
   </div>
 </template>
+
+<style>
+@import "@/assets/reportStyle.css";
+</style>
 
 <script>
 import { axiosInstance } from "../router/index";
 
 export default {
-  props: ["year", "month"],
   data() {
     return {
-      content: {},
-      totalAmount: 0,
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      report: null,
+      availableYears: [2022, 2023, 2024, 2025],
+      availableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     };
   },
   methods: {
-    async fetchAccountingReport(year, month) {
+    async fetchReport() {
       try {
-        const response = await axiosInstance.get(`/report/${year}/${month}`);
-        this.content = response.data.content;
-        this.totalAmount = response.data.totalAmount;
+        const response = await axiosInstance.get(
+          `/report/${this.year}/${this.month}`
+        );
+        this.report = await response.data;
       } catch (error) {
-        console.error("Error fetching accounting report:", error);
+        console.error("Error fetching report:", error);
       }
     },
-  },
-  created() {
-    this.fetchAccountingReport(this.year, this.month);
   },
 };
 </script>

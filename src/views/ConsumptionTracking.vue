@@ -18,10 +18,14 @@
           <td>{{ consumption.date }}</td>
           <td>
             <template v-if="consumption === editingConsumption">
-              <input
+              <select
                 v-model="consumption.typeId"
-                @input="toggleEditConsumption(consumption)"
-              />
+                @change="toggleEditConsumption(consumption)"
+              >
+                <option v-for="type in types" :key="type.id" :value="type.id">
+                  {{ type.id }}
+                </option>
+              </select>
             </template>
             <template v-else>
               {{ consumption.typeId }}
@@ -95,7 +99,6 @@
               </option>
             </select>
           </td>
-
           <td><input v-model="consumption.name" type="text" /></td>
           <td><input v-model="consumption.amount" type="text" /></td>
           <td><input v-model="consumption.note" type="text" /></td>

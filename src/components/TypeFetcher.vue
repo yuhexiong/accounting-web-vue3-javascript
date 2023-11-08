@@ -20,7 +20,6 @@ export default {
       try {
         const response = await axiosInstance.get("/type");
         this.types = response.data;
-        console.log(this.types);
       } catch (err) {
         console.error("Error fetching types.", err);
         this.types = [];

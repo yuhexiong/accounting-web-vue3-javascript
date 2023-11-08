@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+}
+
+.left-pane {
+  /* flex: 1; */
+  background-color: #f0f0f0; 
+}
+
+.right-pane {
+  /* flex: 1; */
+  background-color: #ffffff; 
+}
