@@ -4,18 +4,18 @@
     <table>
       <thead>
         <tr>
-          <th>日期</th>
+          <th class="date-column">日期</th>
           <th>分類</th>
           <th>名稱</th>
           <th>金額</th>
           <th>備註</th>
-          <th class="button-column"></th>
-          <th class="button-column"></th>
+          <th class="button-column">編輯</th>
+          <th class="button-column">刪除</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="consumption in consumptions" :key="consumption.id">
-          <td>{{ consumption.date }}</td>
+          <td class="date-column">{{ consumption.date }}</td>
           <td>
             <template v-if="consumption === editingConsumption">
               <select
@@ -80,7 +80,7 @@
           </td>
         </tr>
         <tr>
-          <td></td>
+          <td class="date-column"></td>
           <td></td>
           <td></td>
           <td></td>
@@ -91,7 +91,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td>{{ todayDate }}</td>
+          <td class="date-column">{{ todayDate }}</td>
           <td>
             <select v-model="consumption.typeId">
               <option v-for="type in types" :key="type.id" :value="type.id">
@@ -102,7 +102,7 @@
           <td><input v-model="consumption.name" type="text" /></td>
           <td><input v-model="consumption.amount" type="text" /></td>
           <td><input v-model="consumption.note" type="text" /></td>
-          <td colspan="2" class="button-column">
+          <td colspan="2" class="insert-button-tb">
             <button @click="addConsumption">新增消費</button>
           </td>
         </tr>

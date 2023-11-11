@@ -1,18 +1,44 @@
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  border: 2px solid black;
 }
 
 th,
 td,
 input {
-  width: 90px;
-  height: 20px;
+  width: 160px;
+  height: 30px;
   border: 1px solid black;
   text-align: left;
-  /* box-sizing: border-box; */
+  padding-left: 5px;
+}
+
+th {
+  border-bottom: 2px solid black;
+}
+
+.date-column {
+  border-right: 2px solid black;
 }
 
 .button-column {
   width: 50px;
+  border-left: 2px solid black;
+}
+
+.insert-button-tb {
+  border-left: 2px solid black;
+}
+
+.info-column {
+  border-left: 2px solid black;
+}
+
+.ym-row {
+  border-bottom: 2px solid black;
+}
+
+tfoot {
+  border-top: 2px solid black;
 }

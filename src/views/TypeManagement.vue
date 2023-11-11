@@ -6,8 +6,8 @@
         <tr>
           <th>代碼</th>
           <th>名稱</th>
-          <th class="button-column"></th>
-          <th class="button-column"></th>
+          <th class="button-column">編輯</th>
+          <th class="button-column">刪除</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +42,9 @@
         <tr>
           <td><input v-model="type.id" type="text" /></td>
           <td><input v-model="type.name" type="text" /></td>
-          <td colspan="2"><button @click="addType">新增類別</button></td>
+          <td colspan="2" class="insert-button-tb">
+            <button @click="addType">新增類別</button>
+          </td>
         </tr>
       </tfoot>
     </table>
