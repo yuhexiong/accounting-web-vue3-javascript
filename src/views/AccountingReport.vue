@@ -1,9 +1,9 @@
 <template>
-  <h2>每月報表</h2>
+  <h2>Monthly Report</h2>
   <div class="container">
     <div class="left-pane">
-      <div>
-        <label for="yearDropdown"><b>年份 </b></label>
+      <div style="margin-bottom: 30px">
+        <label for="yearDropdown"><b>Year </b></label>
         <select v-model="year" id="yearDropdown">
           <option
             v-for="option in availableYears"
@@ -14,7 +14,7 @@
           </option>
         </select>
 
-        <label for="monthDropdown" style="margin-left: 5px"><b>月份 </b></label>
+        <label for="monthDropdown" style="margin-left: 5px"><b>Mon </b></label>
         <select v-model="month" id="monthDropdown">
           <option
             v-for="option in availableMonths"
@@ -25,26 +25,31 @@
           </option>
         </select>
 
-        <button @click="fetchReport" style="margin-left: 5px">搜尋</button>
+        <button @click="fetchReport" style="margin-left: 5px; width: 60px">
+          Search
+        </button>
       </div>
-      <p></p>
 
       <div v-if="report">
         <table style="width: 100%">
           <thead>
             <tr>
-              <th colspan="2" style="width: 380px">項目</th>
-              <th style="width: 70px" class="info-column">詳細資訊</th>
+              <th colspan="2" style="width: 380px">Item</th>
+              <th style="width: 70px" class="info-column">Value</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="ym-row">
-              <td colspan="2">年份</td>
-              <td class="info-column">{{ report.year }}</td>
+            <tr>
+              <td colspan="2" style="border-bottom: 2px solid black">Year</td>
+              <td class="info-column" style="border-bottom: 2px solid black">
+                {{ report.year }}
+              </td>
             </tr>
-            <tr class="ym-row">
-              <td colspan="2">月份</td>
-              <td class="info-column">{{ report.month }}</td>
+            <tr>
+              <td colspan="2" style="border-bottom: 2px solid black">Month</td>
+              <td class="info-column" style="border-bottom: 2px solid black">
+                {{ report.month }}
+              </td>
             </tr>
             <template v-if="Object.keys(report.content).length > 0">
               <tr :key="Object.keys(report.content)[0]">
@@ -52,9 +57,11 @@
                   :rowspan="Object.keys(report.content).length"
                   style="width: 40px"
                 >
-                  細項
+                  Consumption
                 </td>
-                <td>{{ Object.keys(report.content)[0] }}</td>
+                <td style="border-left: 2px solid black">
+                  {{ Object.keys(report.content)[0] }}
+                </td>
                 <td class="info-column">
                   {{ report.content[Object.keys(report.content)[0]] }}
                 </td>
@@ -72,7 +79,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="2">總金額</td>
+              <td colspan="2">Total Amount</td>
               <td class="info-column">{{ report.totalAmount }}</td>
             </tr>
           </tfoot>
@@ -121,7 +128,16 @@ export default {
             enabled: false,
           },
         },
-        colors: ["#006d77", "#83c5be", "#edf6f9", "#ffddd2", "#e29578"],
+        colors: [
+          "#006d77",
+          "#83c5be",
+          "#edf6f9",
+          "#ffddd2",
+          "#e29578",
+          "#8a5743",
+          "#361d13",
+          "#050200",
+        ],
         labels: [],
         responsive: [
           {

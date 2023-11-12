@@ -1,14 +1,17 @@
 <template>
   <div class="app-layout">
     <aside class="sidebar">
-      <div>
-        <h3><router-link to="/type">類別維護</router-link></h3>
+      <div style="margin-bottom: 100px">
+        <h1>Accounting System</h1>
       </div>
-      <div>
-        <h3><router-link to="/consumption">消費紀錄</router-link></h3>
+      <div class="sidebar-router-div">
+        <h4><router-link to="/type">Type Maintain</router-link></h4>
       </div>
-      <div>
-        <h3><router-link to="/report">每月報表</router-link></h3>
+      <div class="sidebar-router-div">
+        <h4><router-link to="/consumption">Consumption Record</router-link></h4>
+      </div>
+      <div class="sidebar-router-div">
+        <h4><router-link to="/report">Monthly Report</router-link></h4>
       </div>
     </aside>
     <main class="content">

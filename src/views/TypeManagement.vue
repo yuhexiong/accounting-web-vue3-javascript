@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h2>類別維護</h2>
+    <h2>Type Maintain</h2>
     <table>
       <thead>
         <tr>
-          <th>代碼</th>
-          <th>名稱</th>
-          <th class="button-column">編輯</th>
-          <th class="button-column">刪除</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th class="button-column">Edit</th>
+          <th class="button-column">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -23,12 +23,12 @@
           </td>
           <td class="button-column">
             <button @click="toggleEditType(type)" v-if="type !== editingType">
-              編輯
+              edit
             </button>
-            <button @click="saveEditedType(type)" v-else>儲存</button>
+            <button @click="saveEditedType(type)" v-else>save</button>
           </td>
           <td class="button-column">
-            <button @click="deleteType(type.id)">刪除</button>
+            <button @click="deleteType(type.id)">delete</button>
           </td>
         </tr>
         <tr>
@@ -43,7 +43,7 @@
           <td><input v-model="type.id" type="text" /></td>
           <td><input v-model="type.name" type="text" /></td>
           <td colspan="2" class="insert-button-tb">
-            <button @click="addType">新增類別</button>
+            <button @click="addType">add</button>
           </td>
         </tr>
       </tfoot>
