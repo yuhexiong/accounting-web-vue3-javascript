@@ -91,9 +91,6 @@ npm run serve
 
 ```
 
-- Before searching.
-![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/report_page.png)
-
-- After searching, you'll find a report table and pie chart displaying this month's consumptions.
+- After searching, there is a report table and pie chart displaying this month's consumptions.
 ![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/report_page_search.png)
 
