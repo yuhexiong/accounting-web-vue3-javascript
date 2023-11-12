@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Consumption Record</h2>
+    <h2 class="title-h2">Consumption Record</h2>
     <table>
       <thead>
         <tr>

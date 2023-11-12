@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Type Maintain</h2>
+    <h2 class="title-h2">Type Maintain</h2>
     <table>
       <thead>
         <tr>

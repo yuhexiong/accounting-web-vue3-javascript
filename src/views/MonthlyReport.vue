@@ -1,9 +1,9 @@
 <template>
-  <h2>Monthly Report</h2>
+  <h2 class="title-h2">Monthly Report</h2>
   <div class="container">
     <div class="left-pane">
-      <div style="margin-bottom: 30px">
-        <label for="yearDropdown"><b>Year </b></label>
+      <div>
+        <label for="yearDropdown" style="font-size: 20px"><b>Year </b></label>
         <select v-model="year" id="yearDropdown">
           <option
             v-for="option in availableYears"
@@ -14,7 +14,9 @@
           </option>
         </select>
 
-        <label for="monthDropdown" style="margin-left: 5px"><b>Mon </b></label>
+        <label for="monthDropdown" style="margin-left: 5px; font-size: 20px"
+          ><b>Month </b></label
+        >
         <select v-model="month" id="monthDropdown">
           <option
             v-for="option in availableMonths"
@@ -40,14 +42,14 @@
           </thead>
           <tbody>
             <tr>
-              <td colspan="2" style="border-bottom: 2px solid black">Year</td>
-              <td class="info-column" style="border-bottom: 2px solid black">
+              <td colspan="2">Year</td>
+              <td class="info-column">
                 {{ report.year }}
               </td>
             </tr>
             <tr>
-              <td colspan="2" style="border-bottom: 2px solid black">Month</td>
-              <td class="info-column" style="border-bottom: 2px solid black">
+              <td colspan="2">Month</td>
+              <td class="info-column">
                 {{ report.month }}
               </td>
             </tr>
@@ -59,11 +61,11 @@
                 >
                   Consumption
                 </td>
-                <td style="border-left: 2px solid black">
+                <td>
                   {{ Object.keys(report.content)[0] }}
                 </td>
                 <td class="info-column">
-                  {{ report.content[Object.keys(report.content)[0]] }}
+                  $ {{ report.content[Object.keys(report.content)[0]] }}
                 </td>
               </tr>
             </template>
@@ -73,14 +75,14 @@
             >
               <tr v-if="index !== 0">
                 <td>{{ item[0] }}</td>
-                <td class="info-column">{{ item[1] }}</td>
+                <td class="info-column">$ {{ item[1] }}</td>
               </tr>
             </template>
           </tbody>
           <tfoot>
             <tr>
               <td colspan="2">Total Amount</td>
-              <td class="info-column">{{ report.totalAmount }}</td>
+              <td class="info-column">$ {{ report.totalAmount }}</td>
             </tr>
           </tfoot>
         </table>
