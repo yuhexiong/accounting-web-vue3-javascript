@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import axios from "axios";
-import TypeManagement from "../views/TypeManagement.vue";
-import ConsumptionTracking from "../views/ConsumptionTracking.vue";
-import AccountingReport from "../views/AccountingReport.vue";
+import TypeMaintain from "../views/TypeMaintain";
+import ConsumptionRecord from "../views/ConsumptionRecord.vue";
+import MonthlyReport from "../views/MonthlyReport.vue";
 import LayoutComponent from "@/components/LayoutComponent.vue";
 import TypeFetcher from "@/components/TypeFetcher";
 
@@ -17,17 +17,17 @@ const routes = [
         children: [
           {
             path: "type",
-            name: "TypeManagement",
-            component: TypeManagement,
+            name: "TypeMaintain",
+            component: TypeMaintain,
           },
           {
             path: "consumption",
-            name: "ConsumptionTracking",
-            component: ConsumptionTracking,
+            name: "ConsumptionRecord",
+            component: ConsumptionRecord,
           },
         ],
       },
-      { path: "report", name: "AccountingReport", component: AccountingReport },
+      { path: "report", name: "MonthlyReport", component: MonthlyReport },
     ],
   },
 ];
