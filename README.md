@@ -59,11 +59,11 @@ npm run serve
 
 ```
 - See all types in this page.
-![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/type_page_v2.png)
+![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/type_page_v3.png)
 
 - After clicking edit, the edit button will become save button.
 - Can add new type on the bottom of the table.
-![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/type_page_edit_v2.png)
+![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/type_page_edit_v3.png)
 
 
 ### consumption Record
@@ -75,12 +75,12 @@ npm run serve
 ```
 
 - See all consumptions in this page.
-![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/consumption_page_v2.png)
+![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/consumption_page_v3.png)
 
 - After clicking edit, the edit button will become save button.
 - All types are exclusively accessible through a dropdown menu for selection.
 - Can add new consumption on the bottom of the table.
-![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/consumption_page_edit_v2.png)
+![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/consumption_page_edit_v3.png)
 
 
 ### Monthly Report
@@ -92,5 +92,5 @@ npm run serve
 ```
 
 - After searching, there is a report table and pie chart displaying this month's consumptions.
-![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/report_page_search_v2.png)
+![image](https://github.com/yuhexiong/accounting-web-vue3-javascript/blob/main/image/report_page_search_v3.png)
 
