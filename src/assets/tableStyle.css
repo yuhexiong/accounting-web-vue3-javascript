@@ -23,7 +23,8 @@ tr {
 }
 
 td {
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
+  background-color: rgb(225, 230, 224);
 }
 
 th:first-child{
