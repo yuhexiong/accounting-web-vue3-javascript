@@ -1,101 +1,103 @@
 <template>
-  <h2 class="title-h2">Monthly Report</h2>
-  <div class="container">
-    <div class="left-pane">
-      <div>
-        <label for="yearDropdown" style="font-size: 20px"><b>Year </b></label>
-        <select v-model="year" id="yearDropdown">
-          <option
-            v-for="option in availableYears"
-            :key="option"
-            :value="option"
-          >
-            {{ option }}
-          </option>
-        </select>
-
-        <label for="monthDropdown" style="margin-left: 5px; font-size: 20px"
-          ><b>Month </b></label
-        >
-        <select v-model="month" id="monthDropdown">
-          <option
-            v-for="option in availableMonths"
-            :key="option"
-            :value="option"
-          >
-            {{ option }}
-          </option>
-        </select>
-
-        <button @click="fetchReport" style="margin-left: 5px; width: 60px">
-          Search
-        </button>
-      </div>
-
-      <div v-if="report">
-        <table style="width: 100%">
-          <thead>
-            <tr>
-              <th colspan="2" style="width: 380px">Item</th>
-              <th style="width: 70px" class="info-column">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colspan="2">Year</td>
-              <td class="info-column">
-                {{ report.year }}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">Month</td>
-              <td class="info-column">
-                {{ report.month }}
-              </td>
-            </tr>
-            <template v-if="Object.keys(report.content).length > 0">
-              <tr :key="Object.keys(report.content)[0]">
-                <td
-                  :rowspan="Object.keys(report.content).length"
-                  style="width: 40px"
-                >
-                  Consumption
-                </td>
-                <td>
-                  {{ Object.keys(report.content)[0] }}
-                </td>
-                <td class="info-column">
-                  $ {{ report.content[Object.keys(report.content)[0]] }}
-                </td>
-              </tr>
-            </template>
-            <template
-              v-for="(item, index) in Object.entries(report.content)"
-              :key="item"
+  <div class="views-div">
+    <h2 class="title-h2">Monthly Report</h2>
+    <div class="container">
+      <div class="left-pane">
+        <div style="margin-top: 10px">
+          <label for="yearDropdown" style="font-size: 20px"><b>Year </b></label>
+          <select v-model="year" id="yearDropdown">
+            <option
+              v-for="option in availableYears"
+              :key="option"
+              :value="option"
             >
-              <tr v-if="index !== 0">
-                <td>{{ item[0] }}</td>
-                <td class="info-column">$ {{ item[1] }}</td>
+              {{ option }}
+            </option>
+          </select>
+
+          <label for="monthDropdown" style="margin-left: 5px; font-size: 20px"
+            ><b>Month </b></label
+          >
+          <select v-model="month" id="monthDropdown">
+            <option
+              v-for="option in availableMonths"
+              :key="option"
+              :value="option"
+            >
+              {{ option }}
+            </option>
+          </select>
+
+          <button @click="fetchReport" style="margin-left: 5px; width: 60px">
+            Search
+          </button>
+        </div>
+
+        <div v-if="report">
+          <table style="width: 100%">
+            <thead>
+              <tr>
+                <th colspan="2" style="width: 380px">Item</th>
+                <th style="width: 70px" class="info-column">Value</th>
               </tr>
-            </template>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="2">Total Amount</td>
-              <td class="info-column">$ {{ report.totalAmount }}</td>
-            </tr>
-          </tfoot>
-        </table>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="2">Year</td>
+                <td class="info-column">
+                  {{ report.year }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">Month</td>
+                <td class="info-column">
+                  {{ report.month }}
+                </td>
+              </tr>
+              <template v-if="Object.keys(report.content).length > 0">
+                <tr :key="Object.keys(report.content)[0]">
+                  <td
+                    :rowspan="Object.keys(report.content).length"
+                    style="width: 40px"
+                  >
+                    Consumption
+                  </td>
+                  <td>
+                    {{ Object.keys(report.content)[0] }}
+                  </td>
+                  <td class="info-column">
+                    $ {{ report.content[Object.keys(report.content)[0]] }}
+                  </td>
+                </tr>
+              </template>
+              <template
+                v-for="(item, index) in Object.entries(report.content)"
+                :key="item"
+              >
+                <tr v-if="index !== 0">
+                  <td>{{ item[0] }}</td>
+                  <td class="info-column">$ {{ item[1] }}</td>
+                </tr>
+              </template>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">Total Amount</td>
+                <td class="info-column">$ {{ report.totalAmount }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
-    </div>
-    <div class="right-pane">
-      <div id="chart">
-        <apexchart
-          type="pie"
-          width="500"
-          :options="chartOptions"
-          :series="series"
-        ></apexchart>
+      <div class="right-pane">
+        <div id="chart">
+          <apexchart
+            type="pie"
+            width="500"
+            :options="chartOptions"
+            :series="series"
+          ></apexchart>
+        </div>
       </div>
     </div>
   </div>

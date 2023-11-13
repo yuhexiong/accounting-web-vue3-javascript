@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="views-div">
     <h2 class="title-h2">Consumption Record</h2>
     <table>
       <thead>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="views-div">
     <h2 class="title-h2">Type Maintain</h2>
     <table>
       <thead>
