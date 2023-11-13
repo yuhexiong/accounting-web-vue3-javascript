@@ -3,18 +3,17 @@
     <aside class="sidebar">
       <div
         style="
-          margin-top: 30px;
-          margin-left: 20px;
-          margin-right: 20px;
-          margin-bottom: 50px;
+          margin-top: 5px;
+          margin-left: 5px;
+          margin-right: 5px;
+          margin-bottom: 80px;
           padding-top: 10px;
           padding-bottom: 10px;
           border: 2px solid white;
           border-radius: 5px;
         "
       >
-        <h1 style="margin: 0px">Accounting</h1>
-        <h1 style="margin: 0px">System</h1>
+        <h3 style="margin: 0px">Accounting System</h3>
       </div>
       <div class="sidebar-router-div">
         <h4><router-link to="/type">Type Maintain</router-link></h4>
