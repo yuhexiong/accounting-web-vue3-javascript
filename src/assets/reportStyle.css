@@ -5,12 +5,11 @@
 }
 
 .left-pane {
-  width: 40%;
+  width: 45%;
 }
 
 .right-pane {
-  width: 60%;
-  height: 100%;
+  width: 55%;
   padding-top: 80px;
-  padding-left: 10px;
+  padding-left: 30px;
 }

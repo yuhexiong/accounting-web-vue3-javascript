@@ -126,7 +126,7 @@ export default {
       series: [],
       chartOptions: {
         chart: {
-          width: 550,
+          width: 500,
           type: "pie",
           animations: {
             enabled: false,

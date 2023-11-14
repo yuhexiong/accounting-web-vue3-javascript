@@ -11,6 +11,12 @@
   background-color: rgb(4, 26, 18);
 }
 
+.logo-name {
+  margin: 0px; 
+  border: 2px solid white; 
+  border-radius: 3px;
+}
+
 .sidebar {
   flex: 0 0 270px;
   width: 270px;
@@ -26,4 +32,15 @@
 .sidebar-router-div {
   text-align: left;
   padding-left: 25px;
+}
+
+.created-info {
+  position: fixed;
+  bottom: 10px;
+  left: 27px;
+}
+
+.created-info p {
+  color: rgb(133, 132, 132); 
+  font-weight: 600;
 }
