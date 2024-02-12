@@ -1,16 +1,23 @@
 table {
   border-spacing: 0;
-  margin-top: 30px;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+table tr:nth-child(odd) td {
+  background-color: #FFFFFF;
+}
+
+table tr:nth-child(even) td {
+  background-color: #F5F5F5;
 }
 
 th,
 td,
 input {
-  width: 160px;
-  height: 30px;
-  border-bottom: 1px solid black;
-  text-align: left;
-  padding-left: 10px;
+  height: 33px;
+  border-bottom: 1px solid rgb(173, 169, 169);
+  text-align: center;
 }
 
 th {
@@ -23,31 +30,33 @@ tr {
 }
 
 td {
-  background-color: rgb(237, 237, 237);
+  background-color: white;
 }
 
 th:first-child{
-  border-top-left-radius: 9px;
+  border-top-left-radius: 3px;
 }
 
 tfoot td:first-child{
-  border-bottom-left-radius: 9px;
+  border-bottom-left-radius: 3px;
 }
 
 th:last-child{
-  border-top-right-radius: 9px;
+  border-top-right-radius: 3px;
 }
 
 tfoot td:last-child{
-  border-bottom-right-radius: 9px;
+  border-bottom-right-radius: 3px;
 }
 
 input {
   height: 20px;
   border: none;
-  border-bottom: 1px solid #bab7b7;
+  border: 1px solid #bab7b7;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .button-column {
-  width: 50px;
+  width: 70px;
 }

@@ -1,13 +1,12 @@
 <template>
   <div class="views-div">
-    <h2 class="title-h2">Type Maintain</h2>
-    <table>
+    <table style="width: 50%">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th class="button-column">Edit</th>
-          <th class="button-column">Delete</th>
+          <th>代碼</th>
+          <th>名稱</th>
+          <th class="button-column">編輯</th>
+          <th class="button-column">刪除</th>
         </tr>
       </thead>
       <tbody>
@@ -15,7 +14,11 @@
           <td>{{ type.id }}</td>
           <td>
             <template v-if="type === editingType">
-              <input v-model="type.name" @input="toggleEditType(type)" />
+              <input
+                v-model="type.name"
+                style="width: 155px"
+                @input="toggleEditType(type)"
+              />
             </template>
             <template v-else>
               {{ type.name }}
@@ -23,12 +26,12 @@
           </td>
           <td class="button-column">
             <button @click="toggleEditType(type)" v-if="type !== editingType">
-              edit
+              編輯
             </button>
-            <button @click="saveEditedType(type)" v-else>save</button>
+            <button @click="saveEditedType(type)" v-else>儲存</button>
           </td>
           <td class="button-column">
-            <button @click="deleteType(type.id)">delete</button>
+            <button @click="deleteType(type.id)">刪除</button>
           </td>
         </tr>
         <tr>
@@ -40,10 +43,12 @@
       </tbody>
       <tfoot>
         <tr>
-          <td><input v-model="type.id" type="text" /></td>
-          <td><input v-model="type.name" type="text" /></td>
+          <td><input v-model="type.id" type="text" style="width: 155px" /></td>
+          <td>
+            <input v-model="type.name" type="text" style="width: 155px" />
+          </td>
           <td colspan="2" class="insert-button-tb">
-            <button @click="addType">add</button>
+            <button @click="addType">新增</button>
           </td>
         </tr>
       </tfoot>

@@ -1,16 +1,15 @@
 <template>
   <div class="views-div">
-    <h2 class="title-h2">Consumption Record</h2>
-    <table>
+    <table style="width: 93%">
       <thead>
         <tr>
-          <th class="date-column">Date</th>
-          <th>Type</th>
-          <th>Name</th>
-          <th>Amount</th>
-          <th>Note</th>
-          <th class="button-column">Edit</th>
-          <th class="button-column">Delete</th>
+          <th class="date-column" style="width: 110px">日期</th>
+          <th style="width: 120px">類別</th>
+          <th style="width: 120px">名稱</th>
+          <th style="width: 80px">金額</th>
+          <th>註記</th>
+          <th class="button-column">編輯</th>
+          <th class="button-column">刪除</th>
         </tr>
       </thead>
       <tbody>
@@ -23,18 +22,19 @@
                 @change="toggleEditConsumption(consumption)"
               >
                 <option v-for="type in types" :key="type.id" :value="type.id">
-                  {{ type.id }}
+                  {{ type.name }}
                 </option>
               </select>
             </template>
             <template v-else>
-              {{ consumption.typeId }}
+              {{ getTypeName(consumption.typeId) }}
             </template>
           </td>
           <td>
             <template v-if="consumption === editingConsumption">
               <input
                 v-model="consumption.name"
+                style="width: 85px"
                 @input="toggleEditConsumption(consumption)"
               />
             </template>
@@ -46,6 +46,7 @@
             <template v-if="consumption === editingConsumption">
               <input
                 v-model="consumption.amount"
+                style="width: 65px"
                 @input="toggleEditConsumption(consumption)"
               />
             </template>
@@ -57,6 +58,7 @@
             <template v-if="consumption === editingConsumption">
               <input
                 v-model="consumption.note"
+                style="width: 255px"
                 @input="toggleEditConsumption(consumption)"
               />
             </template>
@@ -69,14 +71,14 @@
               @click="toggleEditConsumption(consumption)"
               v-if="consumption !== editingConsumption"
             >
-              edit
+              編輯
             </button>
             <button @click="saveEditedConsumption(consumption)" v-else>
-              save
+              儲存
             </button>
           </td>
           <td class="button-column">
-            <button @click="deleteConsumption(consumption.id)">delete</button>
+            <button @click="deleteConsumption(consumption.id)">刪除</button>
           </td>
         </tr>
         <tr>
@@ -95,15 +97,29 @@
           <td>
             <select v-model="consumption.typeId">
               <option v-for="type in types" :key="type.id" :value="type.id">
-                {{ type.id }}
+                {{ type.name }}
               </option>
             </select>
           </td>
-          <td><input v-model="consumption.name" type="text" /></td>
-          <td><input v-model="consumption.amount" type="text" /></td>
-          <td><input v-model="consumption.note" type="text" /></td>
+          <td>
+            <input v-model="consumption.name" type="text" style="width: 85px" />
+          </td>
+          <td>
+            <input
+              v-model="consumption.amount"
+              type="text"
+              style="width: 65px"
+            />
+          </td>
+          <td>
+            <input
+              v-model="consumption.note"
+              type="text"
+              style="width: 255px"
+            />
+          </td>
           <td colspan="2" class="insert-button-tb">
-            <button @click="addConsumption">add</button>
+            <button @click="addConsumption">新增</button>
           </td>
         </tr>
       </tfoot>
@@ -146,6 +162,10 @@ export default {
   methods: {
     refreshTypes() {
       this.$emit("refresh");
+    },
+    getTypeName(typeId) {
+      const type = this.types.find((type) => type.id === typeId);
+      return type ? type.name : "";
     },
     async fetchConsumptions() {
       try {

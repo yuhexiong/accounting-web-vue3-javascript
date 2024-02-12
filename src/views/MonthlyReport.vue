@@ -1,10 +1,9 @@
 <template>
   <div class="views-div">
-    <h2 class="title-h2">Monthly Report</h2>
     <div class="container">
       <div class="left-pane">
-        <div style="margin-top: 10px">
-          <label for="yearDropdown" style="font-size: 20px"><b>Year </b></label>
+        <div style="margin-top: 20px">
+          <label for="yearDropdown" style="font-size: 16px"><b>年份 </b></label>
           <select v-model="year" id="yearDropdown">
             <option
               v-for="option in availableYears"
@@ -15,8 +14,8 @@
             </option>
           </select>
 
-          <label for="monthDropdown" style="margin-left: 5px; font-size: 20px"
-            ><b>Month </b></label
+          <label for="monthDropdown" style="margin-left: 5px; font-size: 16px"
+            ><b>月份 </b></label
           >
           <select v-model="month" id="monthDropdown">
             <option
@@ -28,28 +27,28 @@
             </option>
           </select>
 
-          <button @click="fetchReport" style="margin-left: 5px; width: 60px">
-            Search
+          <button @click="fetchReport" style="margin-left: 5px; width: 50px">
+            搜尋
           </button>
         </div>
 
         <div v-if="report">
-          <table style="width: 100%">
+          <table style="width: 100%; margin-top: 30px">
             <thead>
               <tr>
-                <th colspan="2" style="width: 380px">Item</th>
-                <th style="width: 70px" class="info-column">Value</th>
+                <th colspan="2">項目</th>
+                <th style="width: 30%" class="info-column">數值</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="2">Year</td>
+                <td colspan="2">年份</td>
                 <td class="info-column">
                   {{ report.year }}
                 </td>
               </tr>
               <tr>
-                <td colspan="2">Month</td>
+                <td colspan="2">月份</td>
                 <td class="info-column">
                   {{ report.month }}
                 </td>
@@ -58,9 +57,9 @@
                 <tr :key="Object.keys(report.content)[0]">
                   <td
                     :rowspan="Object.keys(report.content).length"
-                    style="width: 40px"
+                    style="width: 30%"
                   >
-                    Consumption
+                    消費
                   </td>
                   <td>
                     {{ Object.keys(report.content)[0] }}
@@ -82,7 +81,7 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="2">Total Amount</td>
+                <td colspan="2">總金額</td>
                 <td class="info-column">$ {{ report.totalAmount }}</td>
               </tr>
             </tfoot>
