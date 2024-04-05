@@ -1,6 +1,7 @@
 # Accounting Web
 
 ### Backend Server - [Accounting Api TypeScript](https://github.com/yuhexiong/accounting-api-typescript)
+A webpage for keeping accounts.  
 
 ## Overview
 
